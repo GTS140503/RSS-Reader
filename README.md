@@ -4,6 +4,9 @@
 - 軟體設計期末作品
 - 使用MySQL/PHP/html/CSS/JavaScript/BootStrap
 
+##架構
+- asset 網頁媒體
+
 ##主要功能
 - 詳見doc資料夾內部文件
 
