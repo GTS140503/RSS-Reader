@@ -1,4 +1,4 @@
-<? php
+<?php
     $public_dbc;
     function db_connection($host,$username,$password,$db_name){
         $public_dbc=mysqli_connect($host,$username,$password,$db_name);
