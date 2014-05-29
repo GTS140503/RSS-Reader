@@ -1,7 +1,7 @@
 /* aside 左側選單 */
 aside{
     width: 20%;
-    
+
     float: left;
 }
 
@@ -17,9 +17,9 @@ aside div .btn{
 /* section 內容顯示區塊 */
 section{
     width: 79%;
-    
+
     margin-left:10px;
-    
+
     float: left;
 }
 
@@ -36,19 +36,19 @@ section .item.read{
 
 section .item .title h2{
     margin: 0 0 5px 0;
-    
+
     font-weight: bold;
     font-size: 20px;
 }
 
 section .item .control{
     width: 300px;
-    
+
     float: right;
 }
 
 section .item .control button{
     margin-left: 10px;
-    
+
     float:right;
 }
