@@ -3,9 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>WEB RSS Reader</title>
+<<<<<<< HEAD
     <link rel="stylesheet" href="asset/css/bootstrap.css"/>
     <link rel="stylesheet" href="asset/css/bootstrap-theme.css"/>
     <link rel="stylesheet" href="asset/css/custom.css"/>
+=======
+    <link rel="stylesheet" href="css/bootstrap.css"/>
+    <link rel="stylesheet" href="css/bootstrap-theme.css"/>
+    <link rel="stylesheet" href="css/custom.css"/>
+    <script src="js/addtitle.js"></script>
+>>>>>>> 2014/05/27 end of day
 </head>
 <body>
     <header>
@@ -20,7 +27,11 @@
             </form>
         </nav>
     </header>
-    <aside class="list-group">
+    <aside id="rsslist" class="list-group">
+        <div class="title">
+            <span>標題</span>
+            <button class="btn btn-primary" onclick="additem('dss')">新增</button>
+        </div>
         <div class="list-group-item active">
             <span>豬排！</span>
             <button class="btn btn-danger">刪除</button>
@@ -59,5 +70,6 @@
     <footer>
     </footer>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
 </body>
 </html>
