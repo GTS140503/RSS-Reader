@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>WEB RSS Reader</title>
-    <link rel="stylesheet" href="css/bootstrap.css"/>
-    <link rel="stylesheet" href="css/bootstrap-theme.css"/>
-    <link rel="stylesheet" href="css/custom.css"/>
+    <link rel="stylesheet" href="asset/css/bootstrap.css"/>
+    <link rel="stylesheet" href="asset/css/bootstrap-theme.css"/>
+    <link rel="stylesheet" href="asset/css/custom.css"/>
 </head>
 <body>
     <header>
