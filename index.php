@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>WEB RSS Reader</title>
-    <link rel="stylesheet" href="asset/css/bootstrap.css"/>
-    <link rel="stylesheet" href="asset/css/bootstrap-theme.css"/>
-    <link rel="stylesheet" href="asset/css/custom.css"/>
+
+    <link rel="stylesheet" href="css/bootstrap.css"/>
+    <link rel="stylesheet" href="css/bootstrap-theme.css"/>
+    <link rel="stylesheet" href="css/custom.css"/>
+    <script src="js/addtitle.js"></script>
+
 </head>
 <body>
     <header>
@@ -20,7 +23,11 @@
             </form>
         </nav>
     </header>
-    <aside class="list-group">
+    <aside id="rsslist" class="list-group">
+        <div class="title">
+            <span>標題</span>
+            <button class="btn btn-primary" onclick="openPopup()">新增</button>
+        </div>
         <div class="list-group-item active">
             <span>豬排！</span>
             <button class="btn btn-danger">刪除</button>
@@ -58,5 +65,18 @@
     </section>
     <footer>
     </footer>
+    <nav id="popup" class="navbar navbar-default">
+        <div id="title">
+            <input type="text" id="titleinput" class="form-control" placeholder="Title input">
+            <button id="submit" class="btn btn-primary" onclick="additem()">submit</button>
+        </div>
+        <div id="textbox">
+            <input type="text" id="urlinput" class="form-control" placeholder="Url input">
+        </div>
+    </nav>
+    <div id="pageOverlay" onclick="closePopup()"></div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
 </body>
 </html>
