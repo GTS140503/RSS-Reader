@@ -1,8 +1,15 @@
 <?php
-    require_once('config.php');
-    //$aaa=new database;
-
+    /**
+     * database
+     * <p>
+     * 說明：資料庫相關操作
+     * <p>
+     * @version 1.0.0
+     * @author	TangSong jim20259@gmail.com
+     * @link	http://www.plurk.com/tangsong
+     */
     class database{
+        require_once('config.php');
         protected $db;
 
         public function __Construct(){
@@ -38,7 +45,7 @@
         public function getURL($user_id){
             $query="SELECT URL FROM user_url WHERE ID = ?";
             $sth = $this->db->query($query);
-            $sth->execute( $user_id );
+            $sth->execute( array($user_id) );
             $i=0;
             echo '<script>';
             foreach( $sth as $row ){
@@ -48,9 +55,27 @@
             }
             echo '</script>';
         }
-        #NOTE 最後工作位置
-        #NOTE 工作中止原因：修改Master README需切換branch
-        #NOTE 預計下次工作內容：getUserName
+
+        /**
+         * 取得某帳號的名稱
+         * echo 至前端之javascript變數
+         *
+         * @param int $user_id 使用者編號
+         * @return void
+         */
+        public function getUsername($user_id){
+            $query="SELECT username FROM user_url WHERE ID = ?";
+            $sth = $this->db->query($query);
+            $sth->execute( array($user_id) );
+            $i=0;
+            echo '<script>';
+            foreach( $sth as $row ){
+                #TODO: 修改javascript變數名稱
+                echo 'var i' . $i . ' = \'' . $row['username'] . '\';';
+                $i++;
+            }
+            echo '</script>';
+        }
 
         /**
          * 取得某帳號的所有網站名稱
@@ -62,7 +87,7 @@
         public function getSiteName($user_id){
             $query="SELECT site_name FROM user_url WHERE ID = ?";
             $sth = $this->db->query($query);
-            $sth->execute( $user_id );
+            $sth->execute( array($user_id) );
             $i=0;
             echo '<script>';
             foreach( $sth as $row ){
@@ -100,10 +125,10 @@
          * @param string $username 使用者帳號
          * @return boolean 帳號名稱是否存在
          */
-        public function checkUser($username){
+        private function checkUser($username){
             $query = "SELECT username FROM Account WHERE username =?";
             $sth = $this->db->prepare($query);
-            $sth->execute( $username );
+            $sth->execute( array($username) );
             foreach($sth as $row){
                 if($row['username'] == $username ){
                     return true;
@@ -113,6 +138,68 @@
             }
         }
 
+        /**
+         * 增加一筆 使用者-URL-網站名稱 的關聯資料
+         *
+         * @param int $user_id 使用者編號
+         * @param string $URL 網址
+         * @param string $site_name 網站名稱
+         * @return void
+         */
+        private function addList($user_id,$URL,$site_name){
+            $checkURL = checkURL($URL);
+            if($checkURL){
+                $query = "INSERT INTO List (UID, URL_ID, site_name) VALUES (?,?,?)";
+                $sth = $this->db->prepare($query);
+                $sth->execute( array($user_id, $checkURL, $site_name) );
+            }else{
+                newURL($URL);
+                addList($user_id,$URL,$site_name);
+            }
+        }
 
+        /**
+         * 增加一筆URL資料
+         *
+         * @param string $URL 網址
+         * @return void
+         */
+        private function newURL($URL){
+            $query = "INSERT INTO URL (HASH, URL) VALUES (?,?)";
+            $sth = $this->db->prepare($query);
+            $sth->execute( array(md5($URL), $URL) );
+        }
+
+        /**
+         * 檢查資料庫中是否存在傳入的網址
+         *
+         * @param string $URL 網址
+         * @return int 若存在則回傳該網址之ID，若不存在則回傳 0
+         */
+        private function checkURL($URL){
+            $query = "SELECT HASH,ID FROM URL WHERE HASH =?";
+            $sth = $this->db->prepare($query);
+            $sth->execute( array(md5($URL)) );
+            foreach($sth as $row){
+                if($row['HASH'] == md5($URL) ){
+                    return $row['ID'];
+                }else{
+                    return 0;
+                }
+            }
+        }
+
+        /**
+         * 刪除 使用者-URL-網站名稱 的關聯資料
+         *
+         * @param string $user_id 使用者編號
+         * @param string $URL 網址
+         * @return void
+         */
+        public function deleteURL($user_id,$URL){
+            $query = "DELETE FROM List WHERE UID=? and URL_ID=?";
+            $sth = $this->db->prepare($query);
+            $sth->execute( array($user_id,checkURL($URL)) );
+        }
     }
 ?>
