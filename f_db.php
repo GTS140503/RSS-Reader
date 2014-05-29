@@ -3,7 +3,7 @@
 
     $aaa=new database;
     $aaa->getURL(1);
-
+    $aaa->newUser('admin2','81dc9bdb52d04dc20036dbd8313ed055','email@email.com');
     class database{
         protected $db;
 
@@ -40,6 +40,35 @@
             }
 
             echo '</script>';
+        }
+
+        public function newUser($username,$password,$email){
+            if($this->checkUser($username)){
+
+                return false;
+            }else{
+                $query = "INSERT INTO Account (username,password,email) VALUES (?,?,?)";
+                $sth = $this->db->prepare($query);
+                $sth->execute( array($username, $password, $email) );
+
+                return true;
+            }
+        }
+
+        public function checkUser($username){
+
+            $query = "SELECT username FROM Account WHERE username =?";
+
+            $sth = $this->db->prepare($query);
+
+            $sth->execute( array($username) );
+            foreach($sth as $row){
+                if($row['username'] == $username ){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
         }
     }
 ?>
