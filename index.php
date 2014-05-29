@@ -3,16 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>WEB RSS Reader</title>
-<<<<<<< HEAD
-    <link rel="stylesheet" href="asset/css/bootstrap.css"/>
-    <link rel="stylesheet" href="asset/css/bootstrap-theme.css"/>
-    <link rel="stylesheet" href="asset/css/custom.css"/>
-=======
+
     <link rel="stylesheet" href="css/bootstrap.css"/>
     <link rel="stylesheet" href="css/bootstrap-theme.css"/>
     <link rel="stylesheet" href="css/custom.css"/>
     <script src="js/addtitle.js"></script>
->>>>>>> 2014/05/27 end of day
+
 </head>
 <body>
     <header>
