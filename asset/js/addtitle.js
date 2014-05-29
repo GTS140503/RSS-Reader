@@ -15,12 +15,38 @@ var itemtype = {
 
 var itemarray = [];
 
+/**
+*
+*
+**/
 
+var closePopup = function(){
+    document.getElementById('pageOverlay').style.visibility = 'hidden';
+    document.getElementById('popup').style.visibility = 'hidden';
+}
+
+var openPopup = function(){
+    var inputtitle = document.getElementById('titleinput');
+    if(!inputtitle.value != null){
+        inputtitle.value = null;
+    }
+    var inputurl = document.getElementById('urlinput');
+    if(!inputurl.value != null){
+        inputurl.value = null;
+    }
+    document.getElementById('popup');
+    popup.style.visibility = 'visible';
+    popup.style.top = window.innerHeight/2 - 75 +'px';
+    popup.style.left = window.innerWidth/2 - 200 +'px';
+    document.getElementById('pageOverlay').style.visibility = 'visible';
+
+}
 /**
 * Add a new item (url)
 * @param title title which is connected by url is named by user
 **/
-var additem = function(title){
+var additem = function(){
+    var title = document.getElementById('titleinput').value;
     var item = document.createElement('div');
     //create id
     $(item).attr('id',count);
@@ -47,6 +73,7 @@ var additem = function(title){
     console.log(itemarray);
 
     count ++;
+    closePopup();
 }
 
 /**

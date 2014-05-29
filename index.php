@@ -30,7 +30,7 @@
     <aside id="rsslist" class="list-group">
         <div class="title">
             <span>標題</span>
-            <button class="btn btn-primary" onclick="additem('dss')">新增</button>
+            <button class="btn btn-primary" onclick="openPopup()">新增</button>
         </div>
         <div class="list-group-item active">
             <span>豬排！</span>
@@ -69,6 +69,17 @@
     </section>
     <footer>
     </footer>
+    <nav id="popup" class="navbar navbar-default">
+        <div id="title">
+            <input type="text" id="titleinput" class="form-control" placeholder="Title input">
+            <button id="submit" class="btn btn-primary" onclick="additem()">submit</button>
+        </div>
+        <div id="textbox">
+            <input type="text" id="urlinput" class="form-control" placeholder="Url input">
+        </div>
+    </nav>
+    <div id="pageOverlay" onclick="closePopup()"></div>
+
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 
 </body>
