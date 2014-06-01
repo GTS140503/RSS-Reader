@@ -16,24 +16,24 @@ var itemtype = {
 var itemarray = [];
 
 /**
-*
+* Close the popup menu
 *
 **/
 
 var closePopup = function(){
     document.getElementById('pageOverlay').style.visibility = 'hidden';
     document.getElementById('popup').style.visibility = 'hidden';
+    document.getElementById('nullerror').style.visibility = 'hidden';
 }
 
+/**
+* Show the popup menu
+*/
+
 var openPopup = function(){
-    var inputtitle = document.getElementById('titleinput');
-    if(!inputtitle.value != null){
-        inputtitle.value = null;
-    }
-    var inputurl = document.getElementById('urlinput');
-    if(!inputurl.value != null){
-        inputurl.value = null;
-    }
+    $('#titleinput').val(null);
+    $('#urlinput').val(null);
+
     document.getElementById('popup');
     popup.style.visibility = 'visible';
     popup.style.top = window.innerHeight/2 - 75 +'px';
@@ -41,11 +41,32 @@ var openPopup = function(){
     document.getElementById('pageOverlay').style.visibility = 'visible';
 
 }
+
+/*
+* Error input value
+* @return false is input error
+*/
+
+var validateForm = function(){
+    if( $('#titleinput').val() == null || $('#urlinput').val() == null){
+        document.getElementById('nullerror').style.visibility = 'visible';
+        return false;
+    } else if($('#titleinput').val() == "" || $('#urlinput').val() == ""){
+        document.getElementById('nullerror').style.visibility = 'visible';
+        return false;
+    }
+    closePopup();
+    return true;
+
+}
+
 /**
 * Add a new item (url)
 * @param title title which is connected by url is named by user
 **/
 var additem = function(){
+
+
     var title = document.getElementById('titleinput').value;
     var item = document.createElement('div');
     //create id
@@ -73,7 +94,8 @@ var additem = function(){
     console.log(itemarray);
 
     count ++;
-    closePopup();
+    return false;
+
 }
 
 /**
@@ -85,22 +107,19 @@ var itemseleted = function(id){
     console.log('in function itemseleted');
 
     if(isselected == true){
-        var item = document.getElementById(selectedid);
 
-        $(item).attr('class','list-group-item');
-
+        $("#"+selectedid).attr('class','list-group-item');
+        console.log("selected id "+selectedid);
         //END 2014/05/27
         $('div#' + selectedid + ' > button').remove();
-
+        console.log("button delete");
 
     }
     isselected = true;
     selectedid = id;
 
-    var item = document.getElementById(id);
-
     //jquery change class
-    $(item).attr("class",'list-group-item active');
+    $("#"+id).attr("class",'list-group-item active');
     var itemdeleted = document.createElement('button');
     itemdeleted.appendChild(document.createTextNode('刪除'));
     $(itemdeleted).addClass('btn btn-danger');
@@ -108,6 +127,7 @@ var itemseleted = function(id){
 
         //remove element
         $("#"+id).remove();
+        $("#"+id).detach();
         //remove index of array
         itemarray.splice(deleteFromArray(id),1);
         //remove array element
@@ -133,3 +153,4 @@ var deleteFromArray = function(valueOfId){
         return -1;
     }
 }
+

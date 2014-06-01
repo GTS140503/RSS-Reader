@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <title>WEB RSS Reader</title>
 
-    <link rel="stylesheet" href="css/bootstrap.css"/>
-    <link rel="stylesheet" href="css/bootstrap-theme.css"/>
-    <link rel="stylesheet" href="css/custom.css"/>
-    <script src="js/addtitle.js"></script>
+    <link rel="stylesheet" href="asset/css/bootstrap.css"/>
+    <link rel="stylesheet" href="asset/css/bootstrap-theme.css"/>
+    <link rel="stylesheet" href="asset/css/custom.css"/>
+    <script src="asset/js/addtitle.js"></script>
 
 </head>
 <body>
@@ -66,13 +66,15 @@
     <footer>
     </footer>
     <nav id="popup" class="navbar navbar-default">
-        <div id="title">
-            <input type="text" id="titleinput" class="form-control" placeholder="Title input">
-            <button id="submit" class="btn btn-primary" onclick="additem()">submit</button>
-        </div>
-        <div id="textbox">
-            <input type="text" id="urlinput" class="form-control" placeholder="Url input">
-        </div>
+        <form action="" onsubmit="return additem()">
+            <div id="title">
+                <input type="text" id="titleinput" class="form-control" placeholder="Title input">
+                <input type="submit" id="submit" class="btn btn-primary" onclick="return validateForm()">
+            </div>
+                <input type="text" id="urlinput" class="form-control" placeholder="Url input">
+        </form>
+            <p id="nullerror">標題或連結沒有輸入</p>
+
     </nav>
     <div id="pageOverlay" onclick="closePopup()"></div>
 
