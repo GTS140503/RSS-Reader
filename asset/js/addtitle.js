@@ -1,5 +1,11 @@
 //FIXME 2014/05/27 set in localstorage
 
+/**
+* New title
+* *Version: 0.3,Last updated: 6/1/2014*
+**/
+
+
 //global counter
 count = 0;
 

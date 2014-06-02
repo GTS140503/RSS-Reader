@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="asset/css/bootstrap-theme.css"/>
     <link rel="stylesheet" href="asset/css/custom.css"/>
     <script src="asset/js/addtitle.js"></script>
-
+    <script src="asset/js/showContent.js"></script>
 </head>
 <body>
     <header>
@@ -39,7 +39,7 @@
             <span>Jobs 不要偷載片</span>
         </div>
     </aside>
-    <section>
+    <section id="content">
         <div class="item read clearfix">
             <div class="title"><h2>為什麼摔跤的時候要大喊一聲「豬排」？</h2></div>
             <div class="description">這是個令人深思的哲學問題……</div>
