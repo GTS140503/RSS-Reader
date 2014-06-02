@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <title>WEB RSS Reader</title>
 
-    <link rel="stylesheet" href="css/bootstrap.css"/>
-    <link rel="stylesheet" href="css/bootstrap-theme.css"/>
-    <link rel="stylesheet" href="css/custom.css"/>
-    <script src="js/addtitle.js"></script>
-
+    <link rel="stylesheet" href="asset/css/bootstrap.css"/>
+    <link rel="stylesheet" href="asset/css/bootstrap-theme.css"/>
+    <link rel="stylesheet" href="asset/css/custom.css"/>
+    <script src="asset/js/addtitle.js"></script>
+    <script src="asset/js/showContent.js"></script>
 </head>
 <body>
     <header>
@@ -39,7 +39,7 @@
             <span>Jobs 不要偷載片</span>
         </div>
     </aside>
-    <section>
+    <section id="content">
         <div class="item read clearfix">
             <div class="title"><h2>為什麼摔跤的時候要大喊一聲「豬排」？</h2></div>
             <div class="description">這是個令人深思的哲學問題……</div>
@@ -66,13 +66,15 @@
     <footer>
     </footer>
     <nav id="popup" class="navbar navbar-default">
-        <div id="title">
-            <input type="text" id="titleinput" class="form-control" placeholder="Title input">
-            <button id="submit" class="btn btn-primary" onclick="additem()">submit</button>
-        </div>
-        <div id="textbox">
-            <input type="text" id="urlinput" class="form-control" placeholder="Url input">
-        </div>
+        <form action="" onsubmit="return additem()">
+            <div id="title">
+                <input type="text" id="titleinput" class="form-control" placeholder="Title input">
+                <input type="submit" id="submit" class="btn btn-primary" onclick="return validateForm()">
+            </div>
+                <input type="text" id="urlinput" class="form-control" placeholder="Url input">
+        </form>
+            <p id="nullerror">標題或連結沒有輸入</p>
+
     </nav>
     <div id="pageOverlay" onclick="closePopup()"></div>
 
