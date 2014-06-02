@@ -15,7 +15,7 @@ var parser = function(url){
                     var date = day + '/' + month + '/' + year;
                     var $date = $('<div class="date"></div>').text(date);
                     var wrapper = "<li class='single-feed'>";
-                    $(".content").append($(wrapper).append(title,des,link));
+                    $("#content").append($(wrapper).append(title,des,link));
         })
 
     });
