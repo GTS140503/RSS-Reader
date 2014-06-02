@@ -1,6 +1,6 @@
 /**
 * Get Rss feed
-* *Version: 0.1,Lasr updated: 6/2/2014*
+* *Version: 0.2,Lasr updated: 6/2/2014*
 **/
 
 //global counter
@@ -9,6 +9,21 @@ timer = 0;
 pickId = null;
 
 isPick = false;
+
+var replaceURLWithHTMLLinks = function(text) {
+    var exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/i;
+    return text.replace(exp,"<a href='$1'>$1</a>");
+}
+
+//TODO: delete content
+var clearRsscontent = function(){
+    var content = document.getElementById('content');
+    while(content.firstChild){
+        content.removeChild(content.firstChild);
+    }
+
+}
+
 /**
 * Parse RSS Feed in content
 *
@@ -16,14 +31,20 @@ isPick = false;
 
 var showRss = function(url){
     var proxyPhpUrl = 'http://user.frdm.info/ckhung/i/ba-simple-proxy.php?callback=?&url=';
-    var test = 'http://udn.com/udnrss/BREAKINGNEWS1.xml';
-    $.getJSON(proxyPhpUrl + test , function(data){
+    //var test = 'http://udn.com/udnrss/BREAKINGNEWS1.xml';
+    $.getJSON(proxyPhpUrl + url , function(data){
         console.log(data.contents);
         $(data.contents).find('item').each(function(){
-
+            console.log();
             var title = $(this).find('title').text();
+            title = title.replace("<![CDATA[", "").replace("]]>", "");
             var description = $(this).find('description').text();
+            description = description.replace("<![CDATA[", "").replace("]]>", "");
+            var link = $(this).find("link").text();
 
+            link = link.replace("<![CDATA[", "").replace("]]>", "").replace(";","");
+
+            console.log('xx  '+replaceURLWithHTMLLinks(link));
             var contentDiv = document.createElement('div');
             $(contentDiv).attr('class','item clearfix');
             $(contentDiv).attr('id','content'+timer);
@@ -51,6 +72,11 @@ var showRss = function(url){
 
             var readBtn = document.createElement('button');
             $(readBtn).attr('class','btn btn-primary');
+
+            readBtn.addEventListener('click',function(){
+               window.location.href = '\''+link+'\'';
+            },false);
+
             readBtn.appendChild(document.createTextNode('閱讀文章'));
 
             controlDiv.appendChild(readBtn);
@@ -80,10 +106,6 @@ var isArtSelected = function(id){
     isPick = true;
     pickId = id;
     $("#"+id).css('backgroundColor','rgb(250, 250, 175)');
-    var isRead = document.createElement('button');
-    $(isRead).attr('class','btn btn-success');
-    isRead.appendChild(document.createTextNode('標示已讀'));
-    $("div#" + id + ">div.control").append(isRead);
     return true;
 
 }
@@ -93,11 +115,3 @@ var isArtSelected = function(id){
 
 
 
-/*div class="item read clearfix">
-            <div class="title"><h2>為什麼摔跤的時候要大喊一聲「豬排」？</h2></div>
-            <div class="description">這是個令人深思的哲學問題……</div>
-            <div class="control">
-                <button class="btn btn-primary">閱讀文章</button>
-                <button class="btn btn-success">標示已讀</button>
-            </div>
-        </div>*/

@@ -17,9 +17,10 @@ selectedid = null;
 var itemtype = {
     "id":null,
     "title":null,
+    "url":null,
 };
 
-var itemarray = [];
+itemarray = [];
 
 /**
 * Close the popup menu
@@ -66,25 +67,57 @@ var validateForm = function(){
 
 }
 
+//TODO: auful
+var additem = function(){
+    var url = document.getElementById('urlinput').value;
+    var title = document.getElementById('titleinput').value;
+    additemproto(title,url);
+}
+//TODO: auful
+window.onload = function(){
+    additempreload();
+    var welcome = document.getElementById('content');
+    var contentDiv = document.createElement('div');
+    $(contentDiv).attr('class','item clearfix');
+    var title = document.createElement('div');
+    var h2 = document.createElement('h2');
+    h2.appendChild(document.createTextNode('歡迎使用線上RSS閱讀器'));
+    title.appendChild(h2);
+    var descption = document.createElement('div');
+    descption.appendChild(document.createTextNode('立即新增想要訂閱的RSS!!'));
+    contentDiv.appendChild(title);
+    contentDiv.appendChild(descption);
+    document.getElementById('content').appendChild(contentDiv);
+}
+//TODO: auful
+var additempreload = function(){
+    for(var key in localStorage){
+        additemproto(key,localStorage.getItem(key));
+    }
+}
+
 /**
 * Add a new item (url)
 * @param title title which is connected by url is named by user
 **/
-var additem = function(){
+//TODO: function name , para title
+var additemproto = function(title,url){
 
 
-    var title = document.getElementById('titleinput').value;
+    //TODO: auful
+    localStorage.setItem(title,url);
+
     var item = document.createElement('div');
     //create id
-    $(item).attr('id',count);
+    $(item).attr('id','title' + count);
     //create current id number
     var current = $(item).attr('id');
     $(item).addClass('list-group-item');
 
     item.addEventListener('click',function(){
         console.log('in item click listener');
-
-        itemseleted(current);
+        document.getElementById('content').innerHTML = 'Loading...';
+        itemseleted(current,title);
     },false);
 
     var itemtitle = document.createElement('span');
@@ -93,9 +126,9 @@ var additem = function(){
     document.getElementById('rsslist').appendChild(item).appendChild(itemtitle);
 
     itemarray.push({
-        "id":count,
+        "id":current,
         "title":title,
-        "selected":false
+        "url":url,
     });
     console.log(itemarray);
 
@@ -109,8 +142,12 @@ var additem = function(){
 * @param id current id which is selected by user
 **/
 
-var itemseleted = function(id){
+//TODO: param title
+var itemseleted = function(id,title){
     console.log('in function itemseleted');
+
+    //TODO:
+    clearRsscontent();
 
     if(isselected == true){
 
@@ -120,7 +157,13 @@ var itemseleted = function(id){
         $('div#' + selectedid + ' > button').remove();
         console.log("button delete");
 
+
     }
+
+    //TODO:
+    showRss(localStorage.getItem(title));
+
+
     isselected = true;
     selectedid = id;
 
@@ -138,6 +181,8 @@ var itemseleted = function(id){
         itemarray.splice(deleteFromArray(id),1);
         //remove array element
 
+        //TODO:
+        localStorage.removeItem(title);
 
     },false);
 
